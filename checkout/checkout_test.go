@@ -11,7 +11,7 @@ import (
 // checking that the item is added to the
 // scannedItems slice
 func TestScan(t *testing.T) {
-	// create TPricing struct
+	// create TPrices struct
 	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {
@@ -56,7 +56,7 @@ func TestScan(t *testing.T) {
 // that doesn't exist in the pricelist
 // we should assert that the correct error is returned
 func TestScanItemThatDoesNotExist(t *testing.T) {
-	// create TPricing struct
+	// create TPrices struct
 	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {
@@ -82,11 +82,11 @@ func TestScanItemThatDoesNotExist(t *testing.T) {
 	}
 }
 
-// func TestGetTotalPriceNoMultiBuy asserts that the correct
+// TestGetTotalPriceNoMultiBuy asserts that the correct
 // total checkout price is returned, only one of each item is scanned
 // meaning that no multi-buy prices should be used
 func TestGetTotalPriceNoMultiBuy(t *testing.T) {
-	// create TPricing struct
+	// create TPrices struct
 	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {
@@ -113,7 +113,7 @@ func TestGetTotalPriceNoMultiBuy(t *testing.T) {
 	}
 }
 
-// func TestGetTotalPriceWithPerfectMultiBuy asserts that the correct
+// TestGetTotalPriceWithPerfectMultiBuy asserts that the correct
 // total checkout price is returned, including multibuy deals where
 // a perfect multiple of the multibuy cound is used.
 //
@@ -121,7 +121,7 @@ func TestGetTotalPriceNoMultiBuy(t *testing.T) {
 // and SKU B has a multibuy deal of 2 for 45
 // this test scans 3x A and 4x B
 func TestGetTotalPriceWithPerfectMultiBuy(t *testing.T) {
-	// create TPricing struct
+	// create TPrices struct
 	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {
@@ -148,7 +148,7 @@ func TestGetTotalPriceWithPerfectMultiBuy(t *testing.T) {
 	}
 }
 
-// func TestGetTotalPriceWithImperfectMultiBuy asserts that the correct
+// TestGetTotalPriceWithImperfectMultiBuy asserts that the correct
 // total checkout price is returned, including multibuy deals where
 // a non-multiple of the multibuy cound is used.
 //
@@ -156,7 +156,7 @@ func TestGetTotalPriceWithPerfectMultiBuy(t *testing.T) {
 // and SKU B has a multibuy deal of 2 for 45
 // this test scans 4x A and 5x B
 func TestGetTotalPriceWithImperfectMultiBuy(t *testing.T) {
-	// create TPricing struct
+	// create TPrices struct
 	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {
@@ -183,12 +183,12 @@ func TestGetTotalPriceWithImperfectMultiBuy(t *testing.T) {
 	}
 }
 
-// func TestGetTotalPriceNoItemsScanned asserts
+// TestGetTotalPriceNoItemsScanned asserts
 // 0 is returned and no errors are thrown
 // when GetTotalPrice is called when no items are
 // scanned
 func TestGetTotalPriceNoItemsScanned(t *testing.T) {
-	// create TPricing struct
+	// create TPrices struct
 	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {

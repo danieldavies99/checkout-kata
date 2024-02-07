@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	// create TPricing struct
+	// create TPrices struct
 	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("pricing.json")
 	if err != nil {
