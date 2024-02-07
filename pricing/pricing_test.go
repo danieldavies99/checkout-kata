@@ -16,8 +16,8 @@ func TestLoadFromJson(t *testing.T) {
 
 	// Check first item
 	// I used 4 ifs rather than comparing two complete structs because
-	// I am using pointers for MultiBuyPrice and MultiBuyCount which
-	// would break the comparision as go would try to compare the memory addresses
+	// I am using pointers for MultiBuyPrice and MultiBuyCount (because they might be nil) which
+	// would break the comparision as Go would try to compare the memory addresses
 	// rather than the values pointed to
 	if p.Prices["A"].Sku != "A" {
 		t.Fatalf(`LoadFromJson() found Sku: %v, want: %v`, p.Prices["A"].Sku, "A")

@@ -13,18 +13,18 @@ type ICheckout interface {
 }
 
 type TCheckout struct {
-	scannedItems map[string]int // map[itemSku]quantityScanned
-	priceList    pricing.TPrices
+	ScannedItems map[string]int // map[itemSku]quantityScanned
+	PriceList    pricing.TPrices
 }
 
 // Scan inserts a given item into the scannedItems
 // map
 func (c *TCheckout) Scan(item string) error {
 	// check if price exists
-	if _, ok := c.priceList.Prices[item]; !ok {
+	if _, ok := c.PriceList.Prices[item]; !ok {
 		return fmt.Errorf("Attempted to scan item that doesn't exist in pricelist")
 	}
-	c.scannedItems[item] += 1
+	c.ScannedItems[item] += 1
 	return nil
 }
 
@@ -36,8 +36,8 @@ func (c TCheckout) GetTotalPrice() int {
 	// all items in the pricelist because this will scale with large
 	// pricelists
 	total := 0
-	for item, scanCount := range c.scannedItems {
-		itemPricing := c.priceList.Prices[item]
+	for item, scanCount := range c.ScannedItems {
+		itemPricing := c.PriceList.Prices[item]
 		// there is a multibuy discount
 		if itemPricing.MultiBuyCount != nil && itemPricing.MultiBuyPrice != nil {
 			// get count of multibuy total

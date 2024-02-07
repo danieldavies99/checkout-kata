@@ -20,8 +20,8 @@ func TestScan(t *testing.T) {
 
 	// create TCheckout struct
 	c := TCheckout{
-		scannedItems: map[string]int{},
-		priceList:    p,
+		ScannedItems: map[string]int{},
+		PriceList:    p,
 	}
 	// create slice of test items
 	items := []string{"A", "B", "C", "A"}
@@ -35,20 +35,20 @@ func TestScan(t *testing.T) {
 	}
 
 	// assert each item was counted correctly
-	if c.scannedItems["A"] != 2 {
-		t.Fatalf(`Scan() found %d A items, want %d, error`, c.scannedItems["A"], 2)
+	if c.ScannedItems["A"] != 2 {
+		t.Fatalf(`Scan() found %d A items, want %d, error`, c.ScannedItems["A"], 2)
 	}
-	if c.scannedItems["B"] != 1 {
-		t.Fatalf(`Scan() found %d D items, want %d, error`, c.scannedItems["C"], 1)
+	if c.ScannedItems["B"] != 1 {
+		t.Fatalf(`Scan() found %d D items, want %d, error`, c.ScannedItems["C"], 1)
 	}
-	if c.scannedItems["C"] != 1 {
-		t.Fatalf(`Scan() found %d F items, want %d, error`, c.scannedItems["F"], 2)
+	if c.ScannedItems["C"] != 1 {
+		t.Fatalf(`Scan() found %d F items, want %d, error`, c.ScannedItems["F"], 2)
 	}
 
 	// probably unnecessary, but assert counts for items that are not scanned
 	// = 0
-	if c.scannedItems["D"] != 0 {
-		t.Fatalf(`Scan() found %d B items, want %d, error`, c.scannedItems["B"], 0)
+	if c.ScannedItems["D"] != 0 {
+		t.Fatalf(`Scan() found %d B items, want %d, error`, c.ScannedItems["B"], 0)
 	}
 }
 
@@ -65,8 +65,8 @@ func TestScanItemThatDoesNotExist(t *testing.T) {
 
 	// create TCheckout struct
 	c := TCheckout{
-		scannedItems: map[string]int{},
-		priceList:    p,
+		ScannedItems: map[string]int{},
+		PriceList:    p,
 	}
 
 	// scan item that doesn't exist
@@ -95,8 +95,8 @@ func TestGetTotalPriceNoMultiBuy(t *testing.T) {
 
 	// create TCheckout struct
 	c := TCheckout{
-		scannedItems: map[string]int{},
-		priceList:    p,
+		ScannedItems: map[string]int{},
+		PriceList:    p,
 	}
 
 	// create slice of test items
@@ -130,8 +130,8 @@ func TestGetTotalPriceWithPerfectMultiBuy(t *testing.T) {
 
 	// create TCheckout struct
 	c := TCheckout{
-		scannedItems: map[string]int{},
-		priceList:    p,
+		ScannedItems: map[string]int{},
+		PriceList:    p,
 	}
 
 	// create slice of test items
@@ -165,8 +165,8 @@ func TestGetTotalPriceWithImperfectMultiBuy(t *testing.T) {
 
 	// create TCheckout struct
 	c := TCheckout{
-		scannedItems: map[string]int{},
-		priceList:    p,
+		ScannedItems: map[string]int{},
+		PriceList:    p,
 	}
 
 	// create slice of test items
@@ -197,8 +197,8 @@ func TestGetTotalPriceNoItemsScanned(t *testing.T) {
 
 	// create TCheckout struct
 	c := TCheckout{
-		scannedItems: map[string]int{},
-		priceList:    p,
+		ScannedItems: map[string]int{},
+		PriceList:    p,
 	}
 
 	totalPrice := c.GetTotalPrice()
