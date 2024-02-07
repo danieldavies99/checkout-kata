@@ -23,11 +23,12 @@ func (c *TCheckout) Scan(item string) {
 	c.scannedItems[item] += 1
 }
 
+// GetTotalPrice returns the total price of scanned items
+// based on the provided priceList
 func (c TCheckout) GetTotalPrice() int {
 	// iterate over every item in pricelist and see if we
 	// have scanned any items of that type, wouldn't be
 	// very efficient if we had a large pricelist
-
 	total := 0
 	for _, itemPrices := range c.priceList.Prices {
 		// we didn't scan any of these items
@@ -37,8 +38,8 @@ func (c TCheckout) GetTotalPrice() int {
 			continue
 		}
 
+		// there is a multibuy discount
 		if itemPrices.MultiBuyCount != nil && itemPrices.MultiBuyPrice != nil {
-			// there is a multibuy discount
 			// get count of multibuy total
 			// e.g. if discount is 3 for 10
 			// and we've scanned 10 items
