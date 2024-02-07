@@ -1,13 +1,14 @@
 package checkout
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/danieldavies99/checkout-kata/pricing"
 )
 
 type ICheckout interface {
-	Scan(string)
+	Scan(string) error
 	GetTotalPrice() int
 }
 
@@ -18,9 +19,13 @@ type TCheckout struct {
 
 // Scan inserts a given item into the scannedItems
 // map
-func (c *TCheckout) Scan(item string) {
-	// should I check if scanned item exists?
+func (c *TCheckout) Scan(item string) error {
+	// check if price exists
+	if _, ok := c.priceList.Prices[item]; !ok {
+		return fmt.Errorf("Attempted to scan item that doesn't exist in pricelist")
+	}
 	c.scannedItems[item] += 1
+	return nil
 }
 
 // GetTotalPrice returns the total price of scanned items
