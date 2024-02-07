@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "sku": "A",
+            "unit_price": 50,
+            "multibuy_price": 130,
+            "multibuy_quantity": 3
+        },
+        {
+            "sku": "B",
+            "unit_price": 30,
+            "multibuy_price": 45,
+            "multibuy_quantity": 2
+        },
+        {
+            "sku": "C",
+            "unit_price": 20,
+            "multibuy_price": null,
+            "multibuy_quantity": null
+        },
+        {
+            "sku": "D",
+            "unit_price": 15,
+            "multibuy_price": null,
+            "multibuy_quantity": null
+        }
+    ]
+}
