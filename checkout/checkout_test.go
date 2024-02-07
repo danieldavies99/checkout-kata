@@ -43,7 +43,7 @@ func TestScan(t *testing.T) {
 // meaning that no multi-buy prices should be used
 func TestGetTotalPriceNoMultiBuy(t *testing.T) {
 	// create TPricing struct
-	p := pricing.TPrices{}
+	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {
 		t.Fatalf(`LoadFromJson() return err:, %v`, err)
@@ -78,7 +78,7 @@ func TestGetTotalPriceNoMultiBuy(t *testing.T) {
 // this test scans 3x A and 4x B
 func TestGetTotalPriceWithPerfectMultiBuy(t *testing.T) {
 	// create TPricing struct
-	p := pricing.TPrices{}
+	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {
 		t.Fatalf(`LoadFromJson() return err:, %v`, err)
@@ -113,7 +113,7 @@ func TestGetTotalPriceWithPerfectMultiBuy(t *testing.T) {
 // this test scans 4x A and 5x B
 func TestGetTotalPriceWithImperfectMultiBuy(t *testing.T) {
 	// create TPricing struct
-	p := pricing.TPrices{}
+	p := pricing.TPrices{Prices: map[string]pricing.TItemPrices{}}
 	err := p.LoadFromJson("test_pricing.json")
 	if err != nil {
 		t.Fatalf(`LoadFromJson() return err:, %v`, err)

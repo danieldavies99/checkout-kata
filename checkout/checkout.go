@@ -26,34 +26,29 @@ func (c *TCheckout) Scan(item string) {
 // GetTotalPrice returns the total price of scanned items
 // based on the provided priceList
 func (c TCheckout) GetTotalPrice() int {
-	// iterate over every item in pricelist and see if we
-	// have scanned any items of that type, wouldn't be
-	// very efficient if we had a large pricelist
+	// iterate over each value in the scanned items map
+	// this is better than my original approach of iterating through
+	// all items in the pricelist because this will scale with large
+	// pricelists
 	total := 0
-	for _, itemPrices := range c.priceList.Prices {
-		// we didn't scan any of these items
-		// so skip
-		numScanned := c.scannedItems[itemPrices.Sku]
-		if numScanned == 0 {
-			continue
-		}
-
+	for item, scanCount := range c.scannedItems {
+		itemPricing := c.priceList.Prices[item]
 		// there is a multibuy discount
-		if itemPrices.MultiBuyCount != nil && itemPrices.MultiBuyPrice != nil {
+		if itemPricing.MultiBuyCount != nil && itemPricing.MultiBuyPrice != nil {
 			// get count of multibuy total
 			// e.g. if discount is 3 for 10
 			// and we've scanned 10 items
-			// multibuy total = 3
+			// multiBuyTotal = 3
 			// idividualPriceTotal = 1
-			multiBuyTotal := math.Floor(float64(numScanned) / float64(*itemPrices.MultiBuyCount))
-			individualPriceTotal := numScanned % *itemPrices.MultiBuyCount
-			total += int(multiBuyTotal) * *itemPrices.MultiBuyPrice
-			total += individualPriceTotal * *&itemPrices.UnitPrice
+			multiBuyTotal := math.Floor(float64(scanCount) / float64(*itemPricing.MultiBuyCount))
+			individualPriceTotal := scanCount % *itemPricing.MultiBuyCount
+			total += int(multiBuyTotal) * *itemPricing.MultiBuyPrice
+			total += individualPriceTotal * itemPricing.UnitPrice
 			continue
 		}
 
 		// there is no multibuy discount
-		total += numScanned * itemPrices.UnitPrice
+		total += scanCount * itemPricing.UnitPrice
 	}
 
 	return total

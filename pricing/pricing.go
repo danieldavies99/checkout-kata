@@ -20,12 +20,16 @@ type TItemPrices struct {
 }
 
 type TPrices struct {
-	Prices []TItemPrices `json:"items"`
+	Prices map[string]TItemPrices
 }
 
 // LoadFromJson takes a path to a json file
 // containing pricing information and parses
-// it into my structs as defined above
+// it into the structs as defined above
+// I refactored this to output a map instead of
+// my original slice, this is because I can address
+// the pricing directly via Prices[item] rather than
+// having to do a search
 func (c *TPrices) LoadFromJson(path string) error {
 	jsonFile, err := os.Open(path)
 	if err != nil {
@@ -37,7 +41,18 @@ func (c *TPrices) LoadFromJson(path string) error {
 		return fmt.Errorf("Failed to read bytes json file, %v", err)
 	}
 
-	json.Unmarshal(bytes, &c)
+	var t struct {
+		Prices []TItemPrices `json:"items"`
+	}
+
+	err = json.Unmarshal(bytes, &t)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal json, %v", err)
+	}
+
+	for _, v := range t.Prices {
+		c.Prices[v.Sku] = v
+	}
 
 	defer jsonFile.Close()
 	return nil
