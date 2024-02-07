@@ -32,7 +32,10 @@ func (c *TPrices) LoadFromJson(path string) error {
 		return fmt.Errorf("Failed to open json file, %v", err)
 	}
 
-	bytes, _ := ioutil.ReadAll(jsonFile)
+	bytes, err := ioutil.ReadAll(jsonFile)
+	if err != nil {
+		return fmt.Errorf("Failed to read bytes json file, %v", err)
+	}
 
 	json.Unmarshal(bytes, &c)
 
