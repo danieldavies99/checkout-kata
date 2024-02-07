@@ -38,6 +38,9 @@ func TestScan(t *testing.T) {
 	}
 }
 
+// func TestGetTotalPriceNoMultiBuy asserts that the correct
+// total checkout price is returned, only one of each item is scanned
+// meaning that no multi-buy prices should be used
 func TestGetTotalPriceNoMultiBuy(t *testing.T) {
 	// create TPricing struct
 	p := pricing.TPrices{}
@@ -66,6 +69,13 @@ func TestGetTotalPriceNoMultiBuy(t *testing.T) {
 	}
 }
 
+// func TestGetTotalPriceWithPerfectMultiBuy asserts that the correct
+// total checkout price is returned, including multibuy deals where
+// a perfect multiple of the multibuy cound is used.
+//
+// e.g. in our test data, SKU A has a multibuy deal of 3 for 130
+// and SKU B has a multibuy deal of 2 for 45
+// this test scans 3x A and 4x B
 func TestGetTotalPriceWithPerfectMultiBuy(t *testing.T) {
 	// create TPricing struct
 	p := pricing.TPrices{}
@@ -94,6 +104,13 @@ func TestGetTotalPriceWithPerfectMultiBuy(t *testing.T) {
 	}
 }
 
+// func TestGetTotalPriceWithImperfectMultiBuy asserts that the correct
+// total checkout price is returned, including multibuy deals where
+// a non-multiple of the multibuy cound is used.
+//
+// e.g. in our test data, SKU A has a multibuy deal of 3 for 130
+// and SKU B has a multibuy deal of 2 for 45
+// this test scans 4x A and 5x B
 func TestGetTotalPriceWithImperfectMultiBuy(t *testing.T) {
 	// create TPricing struct
 	p := pricing.TPrices{}
